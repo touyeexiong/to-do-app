@@ -13,11 +13,13 @@ app.use(express.json());
 app.post("/todos", async(req, res) => {
     try {
         
-        console.log(req.body);
-        
+    const {description} = req.body;
+    const newTodo = await pool.query("INSERT INTO todo (description) VALUES($1)", 
+    [description]
+    );        
 
     } catch (error) {
-        console.error(err.message);        
+        console.error(error.message);        
     }
 })
 
