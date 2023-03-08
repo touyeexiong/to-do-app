@@ -39,23 +39,23 @@ app.get("/todos", async (req, res) => {
 
 app.get("/todos/:id", async (req, res) => {
     try {
-        const {id} = req.params;
-        const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [id]); 
+        const { id } = req.params;
+        const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [id]);
         res.json(todo.rows[0]);
     } catch (err) {
         console.error(err.message);
-        
+
     }
 })
 
 //update a todo
 
-app.put("/todos/:id", async(req, res) => {
+app.put("/todos/:id", async (req, res) => {
     try {
-        const {id} = req.params;
-        const {description} = req.body;
-        const updateTodo = await pool.query("UPDATE todo SET description = $1 WHERE todo_id =$2", 
-        [description,id]);
+        const { id } = req.params;
+        const { description } = req.body;
+        const updateTodo = await pool.query("UPDATE todo SET description = $1 WHERE todo_id =$2",
+            [description, id]);
 
         res.json("Todo was updated");
     } catch (error) {
@@ -65,9 +65,9 @@ app.put("/todos/:id", async(req, res) => {
 
 //delete a todo
 
-app.delete("/todos/:id", async(req, res) => {
+app.delete("/todos/:id", async (req, res) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [id]);
 
         res.json("the following todo was deleted");
